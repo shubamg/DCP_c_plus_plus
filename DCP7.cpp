@@ -13,7 +13,9 @@ int f(const string& input) {
 		return 1;
 	int f_next_to_next = 1, f_next = 1, f_current = 1;
 	for(auto rev_itr = input.rbegin()+1; rev_itr != input.rend(); rev_itr++) {
-		if((*rev_itr - '0') <= 9 && (*rev_itr - '0') > 2 )
+		if (*rev_itr == '0')
+			f_current = 0;
+		else if((*rev_itr - '0') <= 9 && (*rev_itr - '0') > 2 )
 			f_current = f_next;
 		else if((*rev_itr - '0') == 2)
 			f_current = f_next + f_next_to_next * ((*rev_itr - '0') <= 6);
@@ -28,7 +30,7 @@ int f(const string& input) {
 }
 
 int main() {
-	list<string> inputs{"111", "123456", "", "1", "12123456", "def"};
+	list<string> inputs{"111", "123456", "", "1", "12123456", "602", "1020", "def"};
 	for_each(inputs.begin(), inputs.end(),
 			[] (const string& input) -> void {cout<<input<<": "<<f(input)<<endl;});
 	return 0;
