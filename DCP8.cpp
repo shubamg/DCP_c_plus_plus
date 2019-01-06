@@ -25,7 +25,10 @@ struct Node {
 	int value;
 
 	Node (int val, const string& name): name{name}, left{nullptr}, right{nullptr}, value{val} {}
-
+	Node (Node &) = delete;
+	Node (Node &&) = delete;
+	Node& operator= (Node &) = delete;
+	Node& operator = (Node &&) = delete;
 	~Node() {
 		cout<<"Begin destructor call on "<<name<<endl;
 		if(left) {
@@ -65,14 +68,14 @@ struct Node {
 
 	Node* insert_left_child(int val, const string& name){
 		if(left)
-			delete  left;
+			delete left;
 		left = new Node{val, name};
 		return left;
 	}
 
 	Node* insert_right_child(int val, const string& name){
 			if(right)
-				delete  right;
+				delete right;
 			right = new Node{val, name};
 			return right;
 		}
@@ -90,12 +93,13 @@ public:
 
 int main() {
 	Tree tree{0, "a"};
+	string F = "f";
 	auto a = tree.get_root();
 	auto b = a->insert_left_child(1, "b");
 	auto c = a->insert_right_child(0, "c");
 	auto d = c->insert_left_child(1, "d");
 	auto e = c->insert_right_child(0, "e");
-	auto f = d->insert_left_child(1, "f");
+	auto f = d->insert_left_child(1, F);
 	auto g = d->insert_right_child(1, "g");
 //	auto c1 = a->insert_right_child(0, "c1");
 	cout<<tree.get_num_unival_nodes()<<endl;
