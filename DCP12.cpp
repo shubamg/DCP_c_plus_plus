@@ -22,8 +22,7 @@ struct Matrix {
 
 	Matrix(const vector<vector<int>>& _rows): length{N}, rows{_rows} {}
 
-	Matrix(const vector<int>& seq): length{seq.size()},
-			rows{vector<vector<int>>(length, vector<int>(length, 0))} {
+	Matrix(const vector<int>& seq): Matrix{} {
 		rows[0] = seq;
 		for(int i=1; i<length; i++)
 			rows[i][i-1]=1;
